@@ -1,0 +1,26 @@
+{
+  "name": "cli-template-creator",
+  "version": "0.0.1",
+  "description": "nodejs cli creator",
+  "bin": {
+    "cli-template-creator": "index.js",
+    "ctc": "index.js"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "await-to-js": "^3.0.0",
+    "chalk": "^4.1.2",
+    "cli-alerts": "^1.2.2",
+    "cli-handle-error": "^4.4.0",
+    "cli-handle-unhandled": "^1.1.1",
+    "cli-welcome": "^2.2.2",
+    "copy-template-dir": "^1.4.0",
+    "enquirer": "^2.3.6"
+  }
+}
