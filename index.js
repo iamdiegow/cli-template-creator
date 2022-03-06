@@ -4,55 +4,34 @@
  * CLI TEMPLATE CREATOR
  */
 
-const copy = require('copy-template-dir');
 const path = require('path');
-const { green: g, dim: d } = require('chalk');
-const alert = require('cli-alerts');
 
 const init = require('./utils/init');
-const ask = require('./utils/ask');
+const cli = require('./utils/cli');
+const questions = require('./utils/questions');
+const generate = require('./utils/generate.js');
+
+const input = cli.input;
+const flags = cli.flags;
+const { clear, debug } = flags;
 
 (async () => {
-  init();
+  init({ clear });
 
-  const name = await ask({ message: 'CLI name?', hint: '(kebab-base only)' });
-  const description = await ask({ message: 'CLI description' });
-  const version = await ask({ message: 'CLI version?', initial: '0.0.1' });
-  const authorName = await ask({ message: 'CLI author name?' });
-  const authorEmail = await ask({ message: 'CLI author email?' });
-  const authorUrl = await ask({ message: 'CLI author url?' });
+  input.includes('help') && cli.showHelp(0);
 
-  const vars = {
-    name,
-    description,
-    version,
-    authorName,
-    authorEmail,
-    authorUrl,
-    license: 'MIT',
-  };
+	debug && console.log(flags);
+
+  /** get user input */
+  const vars = await questions();
 
   const inDir = path.join(__dirname, 'template');
   const outDir = path.join(process.cwd(), vars.name);
 
   /** Copy template dir and repace placeholders */
-  copy(inDir, outDir, vars, (err, createdFiles) => {
-    if (err) throw err;
-
-    console.log();
-    console.log(`${d(`Creating files in ${g(`.${path.sep}${vars.name}`)}`)}\n`);
-
-    createdFiles.forEach((createdFile) => {
-      const filename = path.basename(createdFile);
-      console.log(`${g(`CREATED:`)} ${filename}`);
-    });
-
-    alert({
-      type: 'success',
-      name: 'Done!',
-      msg: `\n\n${createdFiles.length} files created in ${g(
-        `.${path.sep}${vars.name}`
-      )}`,
-    });
+  generate({
+    inDir,
+    outDir,
+    vars,
   });
 })();

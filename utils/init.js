@@ -2,7 +2,7 @@ const welcome = require('cli-welcome');
 const pkg = require('../package.json');
 const unhandled = require('cli-handle-unhandled');
 
-module.exports = () => {
+module.exports = ({ clear }) => {
 	unhandled();
 	welcome({
 		title: 'cli-template-generator',
@@ -11,7 +11,7 @@ module.exports = () => {
 		bgColor: '#6cc24a',
 		color: '#000000',
 		bold: true,
-		clear: true,
+		clear,
 		version: pkg.version
 	});
 }
