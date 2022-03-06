@@ -7,8 +7,8 @@ module.exports = ({
 }) => {
 	unhandled();
 	welcome({
-		title: 'cli-template-generator',
-		tagLine: 'by @diegow',
+		title: '{{name}}',
+		tagLine: '{{authorName}}',
 		description: pkg.description,
 		bgColor: '#6cc24a',
 		color: '#000000',
